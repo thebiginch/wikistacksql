@@ -62,6 +62,9 @@ var User = db.define('user', {
     }
 });
 
+Page.belongsTo(User, {as: 'author'});
+
+
 function cat(title) {
     if (title) {
         return title.replace(/[\W]+/g, '').replace(/[\s]+/g, '_')

@@ -16,10 +16,20 @@ router.post('/', function(req, res, next) {
 	var title = req.body.title;
 	var content = req.body.content;
 
+	var author = req.body.name;
+	var email = req.body.email;
+
 	var page = Page.build({
 		title: title,
 		content: content
 	});
+
+	User.findOrCreate({
+		where: { 
+			name: author,
+			email: email
+		}
+	}).then(function(user){page.setAuthor(user)});
 
 	page.save().then(function(something){
 		res.redirect(something.get('urlTitle'));

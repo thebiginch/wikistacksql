@@ -18,10 +18,10 @@ server.use(morgan('dev'));
 server.use(bodyParser.urlencoded({extended: true}));
 server.use(bodyParser.json());
 
-server.use('/wiki', wiki.router)
+server.use('/wiki', wiki.router);
 
-models.User.sync({}).then (function() {
-	return models.Page.sync({});
+models.User.sync({force: true}).then (function() {
+	return models.Page.sync({force: true});
 }).then(function(){
 	server.listen(3000, function() {
 		console.log('We are listneing on Port 3000!')
