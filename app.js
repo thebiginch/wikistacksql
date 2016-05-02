@@ -12,6 +12,8 @@ server.set('view engine', 'html');
 server.engine('html', swig.renderFile);
 swig.setDefaults({cache: false});
 
+server.use(express.static('./public'));
+
 server.use(morgan('dev'));
 server.use(bodyParser.urlencoded({extended: true}));
 server.use(bodyParser.json());

@@ -1,6 +1,6 @@
 var Sequelize = require('sequelize');
 var db = new Sequelize('postgres://localhost:5432/wikistack', {
-	logging: false
+    logging: false
 });
 
 var Page = db.define('page', {
@@ -22,13 +22,24 @@ var Page = db.define('page', {
     date: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW
-    }
+    },
 }, {
     hooks: {
         beforeValidate: function(page, options) {
             page.urlTitle = cat(page.title)
         }
+    },
+
+    {
+    instanceMethods: {
+
+        route: function() {
+               return this.urlTitle;
+        }
     }
+   } 
+
+
 });
 
 var User = db.define('user', {
@@ -47,11 +58,11 @@ function cat(title) {
     if (title) {
         return title.replace(/[\W]+/g, '').replace(/[\s]+/g, '_')
     } else {
-        return Math.random().toString(36).substring(2,7);
+        return Math.random().toString(36).substring(2, 7);
     }
 }
 
 module.exports = {
-  Page: Page,
-  User: User
+    Page: Page,
+    User: User
 };
