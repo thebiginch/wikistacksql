@@ -5,6 +5,12 @@ var Page = models.Page;
 var User = models.User;
 
 
+router.get('/', function(req, res) {
+	Page.findAll().then(function(data) {
+		//res.json(data);
+		res.render('index', { data: data } );
+	});
+});
 
 router.post('/', function(req, res, next) {
 	var title = req.body.title;
@@ -16,7 +22,7 @@ router.post('/', function(req, res, next) {
 	});
 
 	page.save().then(function(something){
-		res.redirect(something.route);
+		res.redirect(something.get('urlTitle'));
 	}).catch(next);
 
 });
