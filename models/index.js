@@ -28,19 +28,16 @@ var Page = db.define('page', {
         beforeValidate: function(page, options) {
             page.urlTitle = cat(page.title)
         }
-    },
+    }
 
-    {
+}, {
     instanceMethods: {
 
         route: function() {
                return this.urlTitle;
         }
     }
-   } 
-
-
-});
+   });
 
 var User = db.define('user', {
     name: {
