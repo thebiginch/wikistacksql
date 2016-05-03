@@ -2,13 +2,22 @@
 {% extends "layout.html" %}
 
 {% block content %}
- <h3> {{page.title}} <small><a href="{{page.urlTitle}}/similar">Similar</a></small></h3>
- <h4>by <a href="PLACEHOLDER-AUTHOR-URL">PLACEHOLDER AUTHOR NAME</a></h4>
- <div>{{page.title}}</div>
+ <h3> {{pages.title}} <small><a href="{{pages.urlTitle}}/similar">Similar</a></small></h3>
+ <h4>by <a href="users/{{pages.authorId}}">{{user.name}}</a></h4>
+ <div>{{pages.title}}</div>
  <hr/>
- <div>PLACEHOLDER AUTHOR NAME WITH LINK TO AUTHOR PAGE</div>
- <div class="page-body">{{page.content}}</div>
+ <div><a href="users/{{pages.authorId}}">{{user.name}}</a></div>
+ <div class="page-body">{{pages.content}}</div>
+ <ul>
+  {% for tag in pages.tags %}
+    <li>{{ tag }}</li>
+  {% endfor %}
+</ul>
+
  <hr/>
- <a href="{{page.urlTitle}}" class="btn btn-primary">edit this page</a>
+
+
+
+ <a href="{{pages.urlTitle}}" class="btn btn-primary">edit this page</a>
  <a href="PLACEHOLDER_URL_TITLE/delete" class="btn btn-danger">delete this page</a>
 {% endblock %}
