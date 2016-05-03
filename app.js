@@ -20,8 +20,9 @@ server.use(bodyParser.json());
 
 server.use('/wiki', wiki.router);
 
-models.User.sync({force: true}).then (function() {
-	return models.Page.sync({force: true});
+
+models.User.sync().then (function() {
+	return models.Page.sync();
 }).then(function(){
 	server.listen(3000, function() {
 		console.log('We are listneing on Port 3000!');

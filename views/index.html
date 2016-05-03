@@ -7,7 +7,7 @@
  <ul class="list-unstyled">
    <!-- PLACEHOLDER LIST OF PAGES -->
    {% for pages in data %}
-   <p><a href="/wiki/{{pages.urlTitle}}">{{pages.title}}</a></p>
+   <p><a href="{{pages.urlTitle}}">{{pages.title}}</a></p>
    {% endfor %}
  </ul>
 {% endblock %}

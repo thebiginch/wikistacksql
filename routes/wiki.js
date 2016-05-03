@@ -13,9 +13,27 @@ router.get('/', function(req, res) {
     });
 });
 
+router.get('/search', function(req, res) {
+    res.render('search');
+});
+
+router.post('/search/', function(req, res) {
+    var tags = req.body.tags;
+    Page.findAll({
+        where: {
+            tags: {
+                $contains: [tags]
+            }
+        }
+    }).then(function(pages) {
+        res.render('index', { data: pages });
+    });
+});
+
 router.post('/', function(req, res, next) {
     var title = req.body.title;
     var content = req.body.content;
+    var tags = req.body.tags.split(' ');
 
     var author = req.body.name;
     var email = req.body.email;
@@ -33,7 +51,8 @@ router.post('/', function(req, res, next) {
 
         var page = Page.build({
             title: title,
-            content: content
+            content: content,
+            tags: tags
         });
 
         page.save().then(function() {
@@ -54,8 +73,8 @@ router.get('/users', function(req, res) {
 
     User.findAll({})
         .then(function(users) {
-            res.json(users);
-            //res.render('users', { users: users });
+            //res.json(users);
+            res.render('users', { users: users });
         });
 
 
@@ -127,11 +146,16 @@ router.get('/:urlTitle', function(req, res) {
         return page.getAuthor();
         //res.render('wikipage', { page: page });
     }).then(function(user) {
-    	//res.json(storedPage);
-    	res.render('wikipage', { user: user, pages: storedPage});
+        //res.json(storedPage);
+        storedPage.tags = storedPage.tags.join(" ");
+        res.render('wikipage', { user: user, pages: storedPage });
     });
 });
 
+//error handling for .catch(next)
+router.get(function(err, req, res, next) {
+    res.render('error', { error: err });
+});
 
 
 module.exports = {

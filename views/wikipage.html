@@ -8,11 +8,7 @@
  <hr/>
  <div><a href="users/{{pages.authorId}}">{{user.name}}</a></div>
  <div class="page-body">{{pages.content}}</div>
- <ul>
-  {% for tag in pages.tags %}
-    <li>{{ tag }}</li>
-  {% endfor %}
-</ul>
+<div class="tags">Tags: {{pages.tags}}</div>
 
  <hr/>
 
