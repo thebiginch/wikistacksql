@@ -37,20 +37,14 @@ var Page = db.define('page', {
     hooks: {
         beforeValidate: function(page, options) {
             page.urlTitle = cat(page.title);
-            //page.route = '/wiki/' + page.urlTitle;
         }
     }
-
-// }, {
-//     instanceMethods: {
-
-//         route: function() {
-//             console.log(this.urlTitle);
-
-//             return this.urlTitle;
-//         }
-//     }
-// }
+}, {
+    getterMethods: {
+        route: function(page) {
+            return '/wiki/' + page.urlTitle;
+        }
+    }
 });
 
 var User = db.define('user', {
@@ -65,7 +59,7 @@ var User = db.define('user', {
     }
 });
 
-Page.belongsTo(User, {as: 'author'});
+Page.belongsTo(User, { as: 'author' });
 
 
 function cat(title) {
