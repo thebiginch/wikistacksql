@@ -19,22 +19,27 @@ router.post('/', function(req, res, next) {
 	var author = req.body.name;
 	var email = req.body.email;
 
-	var page = Page.build({
-		title: title,
-		content: content
-	});
+
 
 	User.findOrCreate({
 		where: { 
 			name: author,
 			email: email
 		}
-	}).then(function(user){page.setAuthor(user)});
+	}).then(function(values){
+		var user = values[0];
 
-	page.save().then(function(something){
-		res.redirect(something.get('urlTitle'));
-	}).catch(next);
+		var page = Page.build({
+			title: title,
+			content: content
+		});
 
+		page.save().then(function(something){
+			return page.setAuthor(user);
+		}).then(function(page){
+			res.redirect(page.get('urlTitle'));
+		}).catch(next);
+	});
 });
 
 router.get('/add', function(req, res){
@@ -51,7 +56,6 @@ router.get('/:urlTitle', function(req, res) {
 		res.render('wikipage',{page: page});
 	});
 });
-
 
 
 

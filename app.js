@@ -24,6 +24,6 @@ models.User.sync({force: true}).then (function() {
 	return models.Page.sync({force: true});
 }).then(function(){
 	server.listen(3000, function() {
-		console.log('We are listneing on Port 3000!')
+		console.log('We are listneing on Port 3000!');
 	});
 }).catch(console.error);

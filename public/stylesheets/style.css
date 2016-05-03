@@ -6,3 +6,15 @@ body {
 a {
   color: #00B7FF;
 }
+
+p {
+	padding: 5px;
+}
+
+.form-group {
+	margin-bottom: 15px;
+}
+
+.status {
+	margin-top: 20px;
+}
